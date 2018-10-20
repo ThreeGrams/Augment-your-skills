@@ -24,8 +24,8 @@ public class SceneSwitcher : MonoBehaviour {
 		SceneManager.LoadSceneAsync("NeedRequest");
 	}
 
-	public void loadAboutScene() {
-		SceneManager.LoadSceneAsync("About");
+	public void loadCameForPhotoSceneScene() {
+		SceneManager.LoadSceneAsync("CameraForPhotoScene");
 	}
 }
 
