@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace AYS.Networking {
     public class NetworkingUtils { 
+        private const int bytesLength = 307000;
+
         public static byte[] Color32ArrayToByteArray(Color32[] colors) {
             if (colors == null || colors.Length == 0) {
                 return null;
@@ -65,7 +67,13 @@ namespace AYS.Networking {
             sendBytes(networkStream, NetworkingUtils.Color32ArrayToByteArray(pixelData));
         }
 
-        public bool IsConnected(TcpClient tcpClient) {
+        public static byte[] readBytes(NetworkStream networkStream) {
+            byte[] data = new byte[bytesLength];
+            networkStream.Read(data, 0, bytesLength);
+            return data;
+        }
+
+        public static bool IsConnected(TcpClient tcpClient) {
             try {
                 if (tcpClient != null && tcpClient.Client != null && tcpClient.Client.Connected) {
                     // Detect if client disconnected

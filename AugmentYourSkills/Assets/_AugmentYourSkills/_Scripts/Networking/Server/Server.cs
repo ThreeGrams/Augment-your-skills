@@ -16,7 +16,9 @@ namespace AYS.Networking.Server {
         private TcpListener _server;
         private bool _isRunning;
 
-        
+        private int lastRoomId = 0;
+        private Dictionary<int, Room> roomPool;
+
         // Start is called before the first frame update
         void Start(){
             _server = new TcpListener(IPAddress.Any, serverConfig.port);
@@ -37,56 +39,92 @@ namespace AYS.Networking.Server {
         }
 
         public void HandleClient(object obj) {
-            TcpClient client = (TcpClient)obj;
-    
-            StreamWriter sWriter = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            StreamReader sReader = new StreamReader(client.GetStream(), Encoding.ASCII);
-    
-            string sData = null;
-    
+            User user = new User((TcpClient)obj);
+
+            if (lastRoomId == 0 || roomPool[lastRoomId].isFull()) {
+                Room newRoom = new Room();
+                newRoom.assign(user);
+                roomPool.Add(++lastRoomId, newRoom);
+            }
+
+            Room lastRoom = roomPool[lastRoomId];
+            if (lastRoom.isReady()) {
+                for (int i = 0; i < lastRoom.assignedUsers.Length; i++) {
+                    NetworkStream networkStream = lastRoom.assignedUsers[i].GetClient().GetStream();
+                    NetworkingUtils.sendString(networkStream, "Room's ready");
+                }
+            }
+       
+            TcpClient tcpClient = user.GetClient();
             while (true) {
-                if (!IsConnected(client)){
+                if (!lastRoom.isReady()) {
+                    continue;
+                }
+
+                if (!NetworkingUtils.IsConnected(tcpClient)){
                     break;
                 }
 
-                sData = sReader.ReadLine();
-    
-                Debug.Log("Prijal jsem" + sData);
-    
-                //sWriter.WriteLine(" Kapesnicek: " + sData);
-                //sWriter.Flush();
+                NetworkStream networkStream = tcpClient.GetStream();
+                byte[] data = NetworkingUtils.readBytes(networkStream);
 
-
+                networkStream = lastRoom.assignedUsers[user.getId() % 2].GetClient().GetStream();
+                NetworkingUtils.sendBytes(networkStream, data);
             }
         }
 
-        public bool IsConnected(TcpClient tcpClient) {
-            try {
-                if (tcpClient != null && tcpClient.Client != null && tcpClient.Client.Connected) {
-                    // Detect if client disconnected
-                    if (tcpClient.Client.Poll(0, SelectMode.SelectRead))
-                    {
-                        byte[] buff = new byte[1];
-                        if (tcpClient.Client.Receive(buff, SocketFlags.Peek) == 0)
-                        {
-                            // Client disconnected
-                            return false;
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
+        public class User {
+            private Room assignedRoom;
+            private TcpClient client;
+            private int ID;
 
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            public User(TcpClient client) {
+                this.client = client;
+            }     
+
+            public TcpClient GetClient() {
+                return client;
+            } 
+
+            public void setId(int Id) {
+                this.ID = Id;
+            }   
+
+            public int getId() {
+                return ID;
+            }  
+
+            public void setAssignedRoom(Room room) {
+                this.assignedRoom = room;
             }
-            catch {
-                return false;
+
+            public Room getAssignedRoom() {
+                return assignedRoom;
+            }
+        }
+
+        public class Room {
+            public User[] assignedUsers = new User[2];
+            private bool ready;
+
+            public void assign(User user) {
+                if (assignedUsers[0] == null) {
+                    assignedUsers[0] = user;
+                    user.setId(0);
+                } else {
+                    assignedUsers[1] = user;
+                    user.setId(1);
+                    ready = true;
+                }
+                user.setAssignedRoom(this);
+            }
+            
+            public bool isFull() {
+                return assignedUsers[1] != null;
+            } 
+
+            public bool isReady() {
+                return ready;
             }
         }
     }
