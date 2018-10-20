@@ -11,21 +11,30 @@ public class NeedRequestUI : MonoBehaviour
 
 
 	[SerializeField]
-	private TMP_InputField title;
+	private TMP_InputField _title;
 
 	[SerializeField]
-	private TMP_InputField description;
+	private InputField _description;
 
 	[SerializeField]
-	private Image buttonImage;
+	private Image _buttonImage;
 	void Start()
     {
-        
-    }
+		Color32[] image = ImageHolder.image;
+		if (image != null) {
+			Texture2D texture2D = new Texture2D(ImageHolder.width, ImageHolder.height);
+			texture2D.SetPixels32(image);
+			texture2D.Apply();
+			_buttonImage.sprite = Sprite.Create(texture2D, _buttonImage.rectTransform.rect, _buttonImage.rectTransform.pivot);
+		}
+		_title.text = RequestDataHolder.title;
+		_description.text = RequestDataHolder.description;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void saveTitleToCache() {
+		RequestDataHolder.title = _title.text;
+	}
+	public void saveDescriptionToCache() {
+		RequestDataHolder.description = _description.text;
+	}
 }
