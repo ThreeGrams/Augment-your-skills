@@ -72,12 +72,19 @@ namespace AYS.AR {
 				return;
 			}
 
+			float xPosition = touch.position.x;
+			float yPosition = touch.position.y;
+			createModelOnPostionFromScreenSpaceCoordinates(xPosition, yPosition);
+		}
+
+		private void createModelOnPostionFromScreenSpaceCoordinates(float xPosition, float yPosition) {
+
 			// Raycast against the location the player touched to search for planes.
 			TrackableHit hit;
 			TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
 				TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
-			if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit)) {
+			if (Frame.Raycast(xPosition, yPosition, raycastFilter, out hit)) {
 				// Use hit pose and camera pose to check if hittest is from the
 				// back of the plane, if it is, no need to create the anchor.
 				if ((hit.Trackable is DetectedPlane) &&
