@@ -9,17 +9,13 @@ namespace AYS.Camera {
 		public WebCamTexture _camera;
 		private Texture _defaultBackground;
 
-		public Texture getCurrentFrameImage() {
-			_camera.Stop();
-			return _camera;
-		}
-
 		public RawImage background;
 		public AspectRatioFitter fitter;
 
 		public static DeviceCamera instance = null;
 
 		private void OnDestroy() {
+			_camera.Stop();
 			instance = null;
 		}
 
@@ -27,6 +23,17 @@ namespace AYS.Camera {
 			instance = this;
 		}
 
+		public Color32[] getCurrentFrameImagePixels() {
+			return _camera.GetPixels32();
+		}
+
+		public int getCurrentImageWidth() {
+			return _camera.width;
+		}
+
+		public int getCurrentImageHeight() {
+			return _camera.height;
+		}
 		// Start is called before the first frame update
 		void Start() {
 			_defaultBackground = background.texture;

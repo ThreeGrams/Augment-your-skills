@@ -4,11 +4,14 @@ using UnityEngine;
 namespace AYS {
 	public class ImageManager : MonoBehaviour {
 
-		public Texture currentImage = null;
+		public Color32[] currentImage = null;
 
 		public void saveImage() {
-			currentImage = DeviceCamera.instance.getCurrentFrameImage();
+			DeviceCamera instance = DeviceCamera.instance;
+			currentImage = instance.getCurrentFrameImagePixels();
 			ImageHolder.image = currentImage;
+			ImageHolder.width = instance.getCurrentImageWidth();
+			ImageHolder.height = instance.getCurrentImageHeight();
 		}
 
 	}
