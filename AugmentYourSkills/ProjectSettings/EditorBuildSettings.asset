@@ -5,22 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/Menu.unity
     guid: 6d5f56804fe846b40987ee318742843c
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/RequestDetail.unity
     guid: cde3050f028cf0e43ad475eab52e5d95
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/NeedRequest.unity
     guid: c3530ef3a45105a43a006ef555ac414d
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/RequestList.unity
     guid: 289d7b0f2db5ecb45a18aefbcf639c9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/CameraForPhotoScene.unity
     guid: db69bf529dddafe4a955cf9bb3572b82
   - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/Server.unity
     guid: 892fb687df257f5489f815e8f8eb5099
+  - enabled: 1
+    path: Assets/_AugmentYourSkills/Scenes/ARScene.unity
+    guid: ee51e83e4ca7e78419ba93813c61a6ab
   m_configObjects: {}
