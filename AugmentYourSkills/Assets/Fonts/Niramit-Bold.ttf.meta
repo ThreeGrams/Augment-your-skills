@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 769154b3cb098bb47a151c6a8e0c9d9f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Niramit Bold
+  fontNames:
+  - Niramit Bold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 701838f9daac1b841a0ea0fa6874131a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

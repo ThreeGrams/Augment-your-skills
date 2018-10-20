@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: e6c91c7f94216fe41b737ffbf89c77ab
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Niramit Light
+  fontNames:
+  - Niramit Light
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e46586d6dbfaf90429aac21c6c89700b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
