@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AYS.Camera {
@@ -7,6 +8,11 @@ namespace AYS.Camera {
 		private bool _cameraIsAvailable;
 		private WebCamTexture _camera;
 		private Texture _defaultBackground;
+
+		public Texture getCurrentFrameImage() {
+			_camera.Stop();
+			return _camera;
+		}
 
 		public RawImage background;
 		public AspectRatioFitter fitter;
