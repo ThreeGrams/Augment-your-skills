@@ -72,7 +72,7 @@ namespace AYS.Networking {
                     if (tcpClient.Client.Poll(0, SelectMode.SelectRead))
                     {
                         byte[] buff = new byte[1];
-                        return !(tcpClient.Client.Receive(buff, SocketFlags.Peek) == 0);
+                        if (tcpClient.Client.Receive(buff, SocketFlags.Peek) == 0)
                         {
                             // Client disconnected
                             return false;
