@@ -5,8 +5,8 @@ using UnityEngine.UI;
 namespace AYS.Camera {
 	public class DeviceCamera : MonoBehaviour {
 
-		private bool _cameraIsAvailable;
-		private WebCamTexture _camera;
+		public bool _cameraIsAvailable;
+		public WebCamTexture _camera;
 		private Texture _defaultBackground;
 
 		public RawImage background;
