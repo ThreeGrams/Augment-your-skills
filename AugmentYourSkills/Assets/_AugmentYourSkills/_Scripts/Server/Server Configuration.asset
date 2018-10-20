@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Server Configuration
   m_EditorClassIdentifier: 
   port: 8080
-  ipAddr: 172.16.230.210
+  ipAddr: 172.16.230.213
