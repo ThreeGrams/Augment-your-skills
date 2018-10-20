@@ -5,7 +5,7 @@ namespace AYS.Camera {
 	public class DeviceCamera : MonoBehaviour {
 
 		private bool _cameraIsAvailable;
-		private WebCamTexture _backCamera;
+		private WebCamTexture _camera;
 		private Texture _defaultBackground;
 
 		public RawImage background;
@@ -34,17 +34,17 @@ namespace AYS.Camera {
 
 			for (int i = 0; i < devices.Length; i++) {
 				if (!devices[i].isFrontFacing) {
-					_backCamera = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
+					_camera = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
 				}
 			}
 
-			if (_backCamera == null) {
+			if (_camera == null) {
 				Debug.Log("No back camera was detected! Trying to use front camera...");
-				_backCamera = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
+				_camera = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
 			}
 
-			_backCamera.Play();
-			background.texture = _backCamera;
+			_camera.Play();
+			background.texture = _camera;
 
 			_cameraIsAvailable = true;
 		}
@@ -55,13 +55,13 @@ namespace AYS.Camera {
 				return;
 			}
 
-			float ratio = _backCamera.width / _backCamera.height;
+			float ratio = _camera.width / _camera.height;
 			fitter.aspectRatio = ratio;
 
-			float scaleY = _backCamera.videoVerticallyMirrored ? -1f : 1f;
+			float scaleY = _camera.videoVerticallyMirrored ? -1f : 1f;
 			background.rectTransform.localScale = new Vector3(1f, scaleY, 1f);
 
-			float orientation = -_backCamera.videoRotationAngle;
+			float orientation = -_camera.videoRotationAngle;
 			background.rectTransform.localEulerAngles = new Vector3(0, 0, orientation);
 
 		}
