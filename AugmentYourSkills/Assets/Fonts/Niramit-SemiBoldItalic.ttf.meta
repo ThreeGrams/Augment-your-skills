@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c704790392cf57148b45bfc7a07f0594
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Niramit SemiBold
+  fontNames:
+  - Niramit SemiBold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 669f8a40a889a284993ee9e5b36906e2, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
