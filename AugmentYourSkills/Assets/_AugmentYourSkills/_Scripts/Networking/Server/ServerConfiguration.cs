@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AYS.Server {
+namespace AYS.Networking {
 	[CreateAssetMenu]
 	public class ServerConfiguration : ScriptableObject {
 		public int port = 8080;

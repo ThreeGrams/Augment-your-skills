@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56f1b5d40958cb428ed5472163f36ce, type: 3}
   m_Name: Server Configuration
   m_EditorClassIdentifier: 
-  port: 8080
-  ipAddr: 172.16.230.213
+  port: 8081
+  ipAddr: 127.0.0.1

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using AYS.Server;
+using AYS.Networking;
 
 public class Client : MonoBehaviour {
     private const int MAX_CONNECTION = 100;
