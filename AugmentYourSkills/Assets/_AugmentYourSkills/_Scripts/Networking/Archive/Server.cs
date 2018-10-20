@@ -32,7 +32,8 @@ namespace AYS.Server {
 
 			HostTopology hostTopology = new HostTopology(connectionConfig, MAX_CLIENT_CONNECTIONS);
 
-			_hostId = NetworkTransport.AddHost(hostTopology, _serverConfig.port, _serverConfig.ipAddr);
+			_hostId = NetworkTransport.AddHost(hostTopology, _serverConfig.port, _serverConfig.ipAddr
+				);
 			_webHostId = NetworkTransport.AddWebsocketHost(hostTopology, _serverConfig.port, _serverConfig.ipAddr);
 
 			_isInitialized = true;
