@@ -31,5 +31,9 @@ public class SceneSwitcher : MonoBehaviour {
 	public void loadARScene() {
 		SceneManager.LoadSceneAsync("ARScene");
 	}
+
+	public void loadClientScene() {
+		SceneManager.LoadSceneAsync("Client");
+	}
 }
 

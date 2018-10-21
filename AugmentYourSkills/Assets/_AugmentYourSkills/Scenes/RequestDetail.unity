@@ -454,6 +454,11 @@ PrefabInstance:
       propertyPath: m_FontData.m_Alignment
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7095510495803027863, guid: 39772418e5528b247802b6d970a16993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: loadClientScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39772418e5528b247802b6d970a16993, type: 3}
 --- !u!114 &4753481418657171877 stripped

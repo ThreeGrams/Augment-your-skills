@@ -28,9 +28,16 @@ public class DetailRequestUI : MonoBehaviour
 			Texture2D tex2D = new Texture2D(ImageHolder.width, ImageHolder.height);
 			tex2D.SetPixels32(ImageHolder.image);
 			_image.sprite = Sprite.Create(tex2D, _image.rectTransform.rect, _image.rectTransform.pivot);
+		} else {
+				
 		}
 		if (_title != null) {
-			_title.text = RequestDataHolder.title;
+			if (RequestDataHolder.title == "") {
+				_title.text = "Title";
+			} else {
+				_title.text = RequestDataHolder.title;
+			}
+			
 		}
 		if (_description != null) {
 			_description.text = RequestDataHolder.description;

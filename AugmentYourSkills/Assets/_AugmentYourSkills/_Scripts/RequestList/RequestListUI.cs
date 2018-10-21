@@ -13,7 +13,12 @@ public class RequestListUI : MonoBehaviour
 	void Start()
     {
 		if (lastButton != null) {
-			lastButton.GetComponentInChildren<Text>().text = RequestDataHolder.title;
+			if (RequestDataHolder.title == "") {
+				lastButton.GetComponentInChildren<Text>().text = "Unity network";
+			} else {
+				lastButton.GetComponentInChildren<Text>().text = RequestDataHolder.title;
+			}
+			
 		}
     }
 
