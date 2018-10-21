@@ -24,6 +24,8 @@ namespace AYS.Networking.Server {
             _server = new TcpListener(IPAddress.Any, serverConfig.port);
             _server.Start();
             _isRunning = true;
+
+            roomPool = new Dictionary<int, Room>();
         }
 
         // Update is called once per frame
@@ -39,21 +41,19 @@ namespace AYS.Networking.Server {
         }
 
         public void HandleClient(object obj) {
+            Debug.Log("New user joined channel");
+
             User user = new User((TcpClient)obj);
 
             if (lastRoomId == 0 || roomPool[lastRoomId].isFull()) {
+                Debug.Log("Creating new room");
                 Room newRoom = new Room();
-                newRoom.assign(user);
                 roomPool.Add(++lastRoomId, newRoom);
             }
 
+            roomPool[lastRoomId].assign(user);
+
             Room lastRoom = roomPool[lastRoomId];
-            if (lastRoom.isReady()) {
-                for (int i = 0; i < lastRoom.assignedUsers.Length; i++) {
-                    NetworkStream networkStream = lastRoom.assignedUsers[i].GetClient().GetStream();
-                    NetworkingUtils.sendString(networkStream, "Room's ready");
-                }
-            }
        
             TcpClient tcpClient = user.GetClient();
             while (true) {
@@ -66,7 +66,9 @@ namespace AYS.Networking.Server {
                 }
 
                 NetworkStream networkStream = tcpClient.GetStream();
-                byte[] data = NetworkingUtils.readBytes(networkStream);
+                byte[] data = new byte[0];
+                
+                NetworkingUtils.readBytes(networkStream, data);
 
                 networkStream = lastRoom.assignedUsers[user.getId() % 2].GetClient().GetStream();
                 NetworkingUtils.sendBytes(networkStream, data);
