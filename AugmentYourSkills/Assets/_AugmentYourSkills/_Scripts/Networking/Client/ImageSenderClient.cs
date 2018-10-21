@@ -14,16 +14,17 @@ namespace AYS.Networking.Client {
         [SerializeField] private ServerConfiguration serverConfig = null;
 
         private TcpClient tcpClient;
-    
-        private bool _isConnected;
 
         // Start is called before the first frame update
         void Start() {
             tcpClient = new TcpClient();
             tcpClient.ConnectAsync(serverConfig.ipAddr, serverConfig.port);
-            _isConnected = true;
 
             StartCoroutine(SendCameraImagesToServer(1.0f));
+        }
+
+        private void OnApplicationQuit() {
+            tcpClient.Close();
         }
 
         IEnumerator SendCameraImagesToServer(float waitTime) {
@@ -36,8 +37,8 @@ namespace AYS.Networking.Client {
             WebCamTexture camera = deviceCamera._camera;
             
             while(camera.isPlaying) {
-                if (_isConnected) {
-                    NetworkingUtils.sendCurrentCameraFrameImage(tcpClient.GetStream(), camera);
+                if (tcpClient.Connected) {
+                    NetworkingUtils.sendCurrentCaptureScreenshotImage(tcpClient.GetStream());
                 }
 
                 yield return new WaitForSeconds(waitTime);

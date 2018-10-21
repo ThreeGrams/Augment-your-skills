@@ -11,6 +11,8 @@ namespace AYS.Networking {
     public class NetworkingUtils { 
         private const int bytesLength = 307000;
 
+        
+
         public static void sendBytes(NetworkStream networkStream, byte[] data) {
             networkStream.Write(data, 0, data.Length);
         }
@@ -19,11 +21,8 @@ namespace AYS.Networking {
             sendBytes(networkStream, Encoding.UTF8.GetBytes(message));
         }
 
-        public static void sendCurrentCameraFrameImage(NetworkStream networkStream, WebCamTexture camera) {
-            Texture2D tex = new Texture2D (camera.width, camera.height);
-            tex.SetPixels (camera.GetPixels());
-            tex.Apply();
-
+        public static void sendCurrentCaptureScreenshotImage(NetworkStream networkStream) {
+            Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
             sendBytes(networkStream, tex.EncodeToJPG());
         }
 
@@ -33,7 +32,7 @@ namespace AYS.Networking {
             return;
         }
 
-        public async static void readJPGImage(NetworkStream networkStream, Texture2D tex) {
+        public static void readJPGImage(NetworkStream networkStream, Texture2D tex) {
             byte[] data = new byte[bytesLength];
             readBytes(networkStream, data);
 

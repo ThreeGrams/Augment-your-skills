@@ -17,14 +17,11 @@ namespace AYS.Networking.Client {
 
         private TcpClient tcpClient;
         private StreamReader streamReader;
-    
-        private bool _isConnected;
 
         // Start is called before the first frame update
         void Start() {
             tcpClient = new TcpClient();
             tcpClient.ConnectAsync(serverConfig.ipAddr, serverConfig.port);
-            _isConnected = true;
         }
 
         void Update() {
@@ -35,6 +32,10 @@ namespace AYS.Networking.Client {
             Texture2D tex = new Texture2D(2,2);
             NetworkingUtils.readJPGImage(tcpClient.GetStream(), tex);
             background.texture = tex;
+        }
+
+        private void OnApplicationQuit() {
+            tcpClient.Close();
         }
     }
 }

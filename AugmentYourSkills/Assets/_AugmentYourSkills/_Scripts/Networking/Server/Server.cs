@@ -76,7 +76,7 @@ namespace AYS.Networking.Server {
             }
         }
 
-        public class User {
+        class User {
             private Room assignedRoom;
             private TcpClient client;
             private int ID;
@@ -106,7 +106,7 @@ namespace AYS.Networking.Server {
             }
         }
 
-        public class Room {
+        class Room {
             public User[] assignedUsers = new User[2];
             private bool ready;
 
