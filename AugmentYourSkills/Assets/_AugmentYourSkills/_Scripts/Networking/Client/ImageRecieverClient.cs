@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -12,6 +13,7 @@ using AYS.Camera;
 namespace AYS.Networking.Client {
     public class ImageRecieverClient : MonoBehaviour {
         [SerializeField] private ServerConfiguration serverConfig = null;
+        [SerializeField] private RawImage background = null;
 
         private TcpClient tcpClient;
         private StreamReader streamReader;
@@ -21,43 +23,18 @@ namespace AYS.Networking.Client {
         // Start is called before the first frame update
         void Start() {
             tcpClient = new TcpClient();
-            tcpClient.Connect(serverConfig.ipAddr, serverConfig.port);
+            tcpClient.ConnectAsync(serverConfig.ipAddr, serverConfig.port);
             _isConnected = true;
-
-            streamReader = new StreamReader(tcpClient.GetStream());
-
-            StartCoroutine(SendCameraImagesToServer(1.0f));
         }
 
         void Update() {
-            if (!_isConnected) {
+            if (!tcpClient.Connected) {
                 return; 
             }
 
-            string line = null;
-
-            while ((line = streamReader.ReadLine()) != null) {
-                Debug.Log(line.Length);
-            }
-        }
-
-        IEnumerator SendCameraImagesToServer(float waitTime) {
-            DeviceCamera deviceCamera = DeviceCamera.instance;
-
-            if (!deviceCamera._cameraIsAvailable) {
-                yield return null;
-            }
-
-            WebCamTexture camera = deviceCamera._camera;
-            
-            while(camera.isPlaying) {
-                if (_isConnected) {
-                    NetworkingUtils.sendCurrentCameraFrameImage(tcpClient.GetStream(), camera);
-                }
-
-                yield return new WaitForSeconds(waitTime);
-            }
-
+            Texture2D tex = new Texture2D(2,2);
+            NetworkingUtils.readJPGImage(tcpClient.GetStream(), tex);
+            background.texture = tex;
         }
     }
 }

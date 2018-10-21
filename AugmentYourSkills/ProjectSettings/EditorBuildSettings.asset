@@ -20,10 +20,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/CameraForPhotoScene.unity
     guid: db69bf529dddafe4a955cf9bb3572b82
-  - enabled: 0
+  - enabled: 1
     path: Assets/_AugmentYourSkills/Scenes/Server.unity
     guid: 892fb687df257f5489f815e8f8eb5099
-  - enabled: 1
+  - enabled: 0
     path: Assets/_AugmentYourSkills/Scenes/ARScene.unity
     guid: ee51e83e4ca7e78419ba93813c61a6ab
+  - enabled: 0
+    path: Assets/_AugmentYourSkills/Scenes/Client.unity
+    guid: f14a9caeeaa56a845ad79eaa27746653
   m_configObjects: {}

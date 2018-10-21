@@ -390,6 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30af97e2194d521448f1eba14f497962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraIsAvailable: 0
+  _camera: {fileID: 0}
   background: {fileID: 1108604422}
   fitter: {fileID: 1108604421}
 --- !u!4 &1086021644
@@ -418,7 +420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837562b01fff3894fada8ab9e857507a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentImage: {fileID: 0}
+  currentImage:
+  - serializedVersion: 2
+    rgba: 20
 --- !u!1 &1108604419
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2000052531}
   - component: {fileID: 2000052530}
+  - component: {fileID: 2000052532}
   m_Layer: 0
   m_Name: SceneSripts
   m_TagString: Untagged
@@ -688,3 +693,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2000052532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000052529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec46562e34c58a4f81ce5d9aa6db0f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverConfig: {fileID: 11400000, guid: ebcfd73fd31befa4e8aaa7d874434980, type: 2}

@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverConfig: {fileID: 11400000, guid: ebcfd73fd31befa4e8aaa7d874434980, type: 2}
+  background: {fileID: 841479489}
 --- !u!4 &434883085
 Transform:
   m_ObjectHideFlags: 0

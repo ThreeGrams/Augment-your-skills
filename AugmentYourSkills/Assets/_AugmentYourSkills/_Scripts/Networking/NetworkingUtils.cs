@@ -11,46 +11,6 @@ namespace AYS.Networking {
     public class NetworkingUtils { 
         private const int bytesLength = 307000;
 
-        public static byte[] Color32ArrayToByteArray(Color32[] colors) {
-            if (colors == null || colors.Length == 0) {
-                return null;
-            }
-
-            int lengthOfColor32 = Marshal.SizeOf(typeof(Color32));
-            int length = lengthOfColor32 * colors.Length;
-            byte[] bytes = new byte[length];
-
-            GCHandle handle = default(GCHandle);
-            try
-            {
-                handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
-                IntPtr ptr = handle.AddrOfPinnedObject();
-                Marshal.Copy(ptr, bytes, 0, length);
-            }
-            finally
-            {
-                if (handle != default(GCHandle))
-                    handle.Free();
-            }
-
-            return bytes;
-        }
-
-        public static Color32[] ByteArrayToColor32Array(byte[] data) {
-            if (data == null || data.Length == 0) {
-                return null;
-            }
-            
-            Color32[] colorArray = new Color32[data.Length/4];
-            for(int i = 0; i < data.Length; i+=4)
-            {
-                var color = new Color32(data[i + 0], data[i + 1], data[i + 2],data[i + 3]);
-                colorArray[i/4] = color;
-            }
-
-            return colorArray;
-        }
-
         public static void sendBytes(NetworkStream networkStream, byte[] data) {
             networkStream.Write(data, 0, data.Length);
         }
@@ -60,17 +20,27 @@ namespace AYS.Networking {
         }
 
         public static void sendCurrentCameraFrameImage(NetworkStream networkStream, WebCamTexture camera) {
-            Color32[] pixelData;
-            pixelData = new Color32[camera.width * camera.height];
+            Texture2D tex = new Texture2D (camera.width, camera.height);
+            tex.SetPixels (camera.GetPixels());
+            tex.Apply();
 
-            camera.GetPixels32(pixelData);
-            sendBytes(networkStream, NetworkingUtils.Color32ArrayToByteArray(pixelData));
+            sendBytes(networkStream, tex.EncodeToJPG());
         }
 
-        public static byte[] readBytes(NetworkStream networkStream) {
+        public async static void readBytes(NetworkStream networkStream, byte[] data) {
+            data = new byte[bytesLength];
+            await networkStream.ReadAsync(data, 0, bytesLength);
+            return;
+        }
+
+        public async static void readJPGImage(NetworkStream networkStream, Texture2D tex) {
             byte[] data = new byte[bytesLength];
-            networkStream.Read(data, 0, bytesLength);
-            return data;
+            readBytes(networkStream, data);
+
+            tex = new Texture2D(1, 1);
+            tex.LoadImage(data);
+
+            return;
         }
 
         public static bool IsConnected(TcpClient tcpClient) {
