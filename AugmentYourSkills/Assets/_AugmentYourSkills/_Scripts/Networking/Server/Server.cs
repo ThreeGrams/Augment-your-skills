@@ -69,6 +69,7 @@ namespace AYS.Networking.Server {
                 byte[] data = new byte[0];
                 
                 NetworkingUtils.readBytes(networkStream, data);
+                Debug.Log(data.Length);
 
                 networkStream = lastRoom.assignedUsers[user.getId() % 2].GetClient().GetStream();
                 NetworkingUtils.sendBytes(networkStream, data);

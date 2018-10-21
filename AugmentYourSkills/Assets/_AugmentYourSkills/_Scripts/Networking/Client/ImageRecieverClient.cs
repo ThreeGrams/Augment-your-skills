@@ -23,7 +23,7 @@ namespace AYS.Networking.Client {
         // Start is called before the first frame update
         void Start() {
             tcpClient = new TcpClient();
-            tcpClient.Connect(serverConfig.ipAddr, serverConfig.port);
+            tcpClient.ConnectAsync(serverConfig.ipAddr, serverConfig.port);
             _isConnected = true;
         }
 
